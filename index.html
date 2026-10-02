@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>My AI Chatbot</title>
+
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #eef2ff;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.chat {
+    width: 400px;
+    height: 600px;
+    background: white;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 5px 25px rgba(0,0,0,0.2);
+    display: flex;
+    flex-direction: column;
+}
+
+.header {
+    background: #2563eb;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.messages {
+    flex: 1;
+    padding: 15px;
+    overflow-y: auto;
+}
+
+.message {
+    padding: 12px 15px;
+    margin-bottom: 10px;
+    border-radius: 15px;
+    max-width: 80%;
+    line-height: 1.4;
+}
+
+.bot {
+    background: #e5e7eb;
+    color: #111;
+}
+
+.user {
+    background: #2563eb;
+    color: white;
+    margin-left: auto;
+}
+
+.input-box {
+    display: flex;
+    padding: 10px;
+    border-top: 1px solid #ddd;
+    gap: 8px;
+}
+
+input {
+    flex: 1;
+    padding: 13px;
+    border: 1px solid #ccc;
+    border-radius: 25px;
+    outline: none;
+    font-size: 15px;
+}
+
+button {
+    border: none;
+    background: #2563eb;
+    color: white;
+    padding: 0 20px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+button:hover {
+    background: #1d4ed8;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="chat">
+
+    <div class="header">
+        🤖 My AI Chatbot
+    </div>
+
+    <div class="messages" id="messages">
+
+        <div class="message bot">
+            Hello! 👋<br>
+            I am your AI chatbot. How can I help you?
+        </div>
+
+    </div>
+
+    <div class="input-box">
+
+        <input
+            type="text"
+            id="input"
+            placeholder="Type your message..."
+        >
+
+        <button onclick="sendMessage()">
+            Send
+        </button>
+
+    </div>
+
+</div>
+
+<script>
+
+function sendMessage() {
+
+    let input = document.getElementById("input");
+
+    let text = input.value.trim();
+
+    if (text === "") {
+        return;
+    }
+
+    // Show user message
+    addMessage(text, "user");
+
+    input.value = "";
+
+    // Bot response
+    setTimeout(function() {
+
+        let reply = getReply(text);
+
+        addMessage(reply, "bot");
+
+    }, 500);
+}
+
+
+function addMessage(text, type) {
+
+    let messages = document.getElementById("messages");
+
+    let div = document.createElement("div");
+
+    div.className = "message " + type;
+
+    div.innerHTML = text;
+
+    messages.appendChild(div);
+
+    messages.scrollTop = messages.scrollHeight;
+}
+
+
+function getReply(text) {
+
+    text = text.toLowerCase();
+
+    if (text.includes("hello") || text.includes("hi")) {
+        return "Hello! 👋 Nice to meet you.";
+    }
+
+    if (text.includes("how are you")) {
+        return "I'm doing great! 😊 Thanks for asking.";
+    }
+
+    if (text.includes("your name")) {
+        return "My name is My AI Chatbot 🤖";
+    }
+
+    if (text.includes("python")) {
+        return "Python is a programming language used for AI, websites, automation and data science.";
+    }
+
+    if (text.includes("html")) {
+        return "HTML is used to create the structure of websites.";
+    }
+
+    if (text.includes("css")) {
+        return "CSS is used to design websites and make them beautiful.";
+    }
+
+    if (text.includes("javascript")) {
+        return "JavaScript makes websites interactive.";
+    }
+
+    if (text.includes("who are you")) {
+        return "I am a simple AI-style chatbot created using HTML, CSS and JavaScript.";
+    }
+
+    if (text.includes("thank")) {
+        return "You're welcome! 😊";
+    }
+
+    if (text.includes("bye")) {
+        return "Goodbye! 👋 See you again.";
+    }
+
+    return "🤔 I don't know that yet. Please ask me something else.";
+}
+
+
+// Press ENTER to send
+
+document.getElementById("input").addEventListener("keydown", function(event) {
+
+    if (event.key === "Enter") {
+        sendMessage();
+    }
+
+});
+
+</script>
+
+</body>
+</html>
